@@ -5,6 +5,16 @@
 #   offset 8  : value
 #   offset 16 : next
 sum:
+    movq $0, %rax
+    testq %rdi, %rdi
+    je .Ldone
+.Lloop:
+    addq 8(%rdi), %rax
+    movq 16(%rdi), %rdi
+    testq %rdi, %rdi
+    je .Ldone
+    jmp .Lloop
+.Ldone:
     retq
 
 
