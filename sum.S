@@ -12,11 +12,9 @@ sum:
     addq 8(%rdi), %rax
     movq 16(%rdi), %rdi
     testq %rdi, %rdi
-    je .Ldone
-    jmp .Lloop
+    jne .Lloop
 .Ldone:
     retq
-
 
 # sum of the elements of a linkedlist in C
 # long sum(struct ll *list){
