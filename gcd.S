@@ -1,6 +1,15 @@
 .global gcd
 # a in %edi, b in %esi; result in %eax
 gcd:
+    movl %edi, %eax
+    testl %esi, %esi
+    je .Ldone
+    cltd
+    idivl %esi
+    movl %esi, %edi
+    movl %edx, %esi
+    call gcd
+.Ldone:
     retq
 
 
