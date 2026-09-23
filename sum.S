@@ -5,16 +5,16 @@
 #   offset 8  : value
 #   offset 16 : next
 sum:
-    movq $0, %rax
-    testq %rdi, %rdi
-    je .Ldone
+    movq $0, %rax       # rax = total = 0
+    testq %rdi, %rdi    # ZF=1 if ptr == NULL
+    je .Ldone           # if ptr == NULL, skip loop, return 0
 .Lloop:
-    addq 8(%rdi), %rax
-    movq 16(%rdi), %rdi
-    testq %rdi, %rdi
-    jne .Lloop
+    addq 8(%rdi), %rax  # rax = total + ptr->value
+    movq 16(%rdi), %rdi # rdi = ptr->next
+    testq %rdi, %rdi    # set flags on new ptr
+    jne .Lloop          # if ptr != NULL, repeat loop
 .Ldone:
-    retq
+    retq                # return rax
 
 # sum of the elements of a linkedlist in C
 # long sum(struct ll *list){
